@@ -13,7 +13,7 @@ namespace Shared
         private readonly IQueueClient _queueClient;
         public ServiceBus()
         {
-            _queueClient = new QueueClient("Endpoint=sb://hasibul.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=ABAdiTtn32vGiN4CBlFCCGnpirTwMn4qwnZv49mVy34=", "helloworld");
+            _queueClient = new QueueClient("Endpoint=sb://somename.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=--your key--", "helloworld");
         }
         public Task Send<T>(T message)
         {
@@ -28,6 +28,7 @@ namespace Shared
                 AutoComplete = true,
                 MaxConcurrentCalls = 1
             };
+            _queueClient.PrefetchCount = 1;
             _queueClient.RegisterMessageHandler((message, token) =>
             {
                 try

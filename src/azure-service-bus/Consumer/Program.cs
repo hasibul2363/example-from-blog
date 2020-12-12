@@ -11,9 +11,10 @@ namespace Consumer
         public static void Main(string[] args)
         {
             Console.WriteLine("Press Enter to listen...");
-            Console.Read();
-            new ServiceBus().Listen<CreateUser>(CreateUserHandler);
-            Console.Read();
+            Console.ReadLine();
+            var bus = new ServiceBus();
+            bus.Listen<CreateUser>(CreateUserHandler);
+            Console.ReadLine();
         }
 
         public static Task CreateUserHandler(CreateUser command)
