@@ -23,11 +23,11 @@ namespace Consumer.AzureFunction
                 await Task.Delay(5000);
                 log.LogInformation($"Done {message.MessageId} :)\n");
 
-
             }
             catch (Exception ex)
             {
                 message.UserProperties.Add("Exception_detail", ex.ToString());
+                await messageReceiver.AbandonAsync(message.SystemProperties.LockToken, message.UserProperties);
                 throw;
             }
         }
